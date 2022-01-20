@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import Text from './Text';
 
 const styles = StyleSheet.create({
@@ -7,19 +7,79 @@ const styles = StyleSheet.create({
 		padding: 20,
 		marginVertical: 8,
 		marginHorizontal: 16,
-		fontSize: 20
+		fontSize: 20,
+		backgroundColor: '#FFFFFF'
+	},
+	avatar: {
+		width: 45,
+		height: 45,
+		marginRight: 10,
+		borderRadius: 4, 
+	},
+	topSection: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		maxWidth: 300,
+		marginBottom: 5
+	},
+	description: {
+		flexGrow: 2,
+		justifyContent: 'space-around'
+	}, 
+	radius: {
+		borderRadius: 4
+	},
+	infoSection: {
+		flexDirection: 'row',
+		justifyContent: 'space-around'
+	},
+	languageSection: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+	},
+	languageItem: {
+		borderRadius: 4,
+		padding: 5,
+	},
+	bottomMargin: {
+		marginBottom: 3
 	}
 });
 
+const Info = ({ label, count }) => {
+	let formatedCount = count;
+	if ( count >= 1000 && count < 1000000) {
+		formatedCount = `${formatedCount.toFixed(1)}k`;
+	} else if ( count > 1000000 ) {
+		formatedCount = `${formatedCount.toFixed(1)}M`;
+	}
+	return (
+		<View>
+			<Text fontWeight='bold'>{formatedCount}</Text>
+			<Text color='textSecondary'>{label}</Text>
+		</View>
+	);
+};
+
+
 const RepositoryItem = ({ item }) => (
 	<View style={styles.item}>
-		<Text>Full name: {item.fullName}</Text>
-		<Text>Description: ${item.description}</Text>
-		<Text>Language: ${item.language}</Text>
-		<Text>Stars: ${item.stargazersCount}</Text>
-		<Text>Forks: ${item.forksCount}</Text>
-		<Text>Reviews: ${item.reviewCount}</Text>
-		<Text>Rating: ${item.ratingAverage}</Text>
+		<View style={styles.topSection}> 
+			<Image style={styles.avatar} source={{ uri: item.ownerAvatarUrl}} />
+			<View style={styles.description}>
+				<Text style={styles.bottomMargin} fontWeight='bold'>{item.fullName}</Text>
+				<Text style={styles.bottomMargin} color='textSecondary'>{item.description}</Text>
+				<View style={styles.languageSection}>
+					<Text backGround='primary' color='whiteText' style={styles.languageItem}>{item.language}</Text>
+				</View>
+			</View>
+		</View>
+		<View style={styles.infoSection}>
+			<Info label='Stars' count={item.stargazersCount}/>
+			<Info label='Forks' count={item.forksCount}/>
+			<Info label='Reviews' count={item.reviewCount}/>
+			<Info label='Rating' count={item.ratingAverage}/>
+		</View>
 	</View>
 );
 
