@@ -6,9 +6,24 @@ import TextInput from './TextInput';
 import Text from './Text';
 
 const styles = StyleSheet.create({
-  errorText: {
-    marginTop: 5,
-  },
+	errorText: {
+		marginBottom: 7,
+		marginLeft: "8%",
+		color: "#d73a4a",
+		alignSelf: "flex-start"
+	},
+	textInput: {
+		height: 40,
+		margin: 12,
+		width: '90%',
+		borderRadius: 4,
+		padding: 10,
+		paddingBottom: 4,
+		borderWidth: 1,
+		borderStyle: 'solid',
+		borderColor: '#b2b2b2',
+		alignItems: 'center',
+	}
 });
 
 const FormikTextInput = ({ name, ...props }) => {
@@ -18,6 +33,7 @@ const FormikTextInput = ({ name, ...props }) => {
   return (
     <>
       <TextInput
+		style={styles.textInput}
         onChangeText={value => helpers.setValue(value)}
         onBlur={() => helpers.setTouched(true)}
         value={field.value}
