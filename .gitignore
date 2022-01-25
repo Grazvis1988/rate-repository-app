@@ -10,7 +10,9 @@ npm-debug.*
 web-build/
 *.swp
 *.vim
-package-lock.js
+package-lock.json
+.env
+app_previousVersion.json
 
 # macOS
 .DS_Store
