@@ -21,7 +21,7 @@ const useSignIn = () => {
 	const signIn = async ({ username, password }) => {
 		// call the mutate function here with the right arguments
 
-		const  data = await Authenticate({ variables: { credentials: { username, password }}});
+		const data = await Authenticate({ variables: { credentials: { username, password }}});
 
 		return { ...data };
 	};
