@@ -32,7 +32,7 @@ const useSignIn = () => {
 		const { data } = await Authenticate({ variables: { credentials: { username, password }}});
 		await authStorage.setAccessToken(data.authenticate.accessToken);
 
-		client.resetStore();
+		await client.resetStore();
 
 		return { data };
 	};

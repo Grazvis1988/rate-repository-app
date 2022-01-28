@@ -2,7 +2,9 @@ import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
-import AppBarTab, { SignInTab } from './AppBarTab';
+import { RepositoriesTab, SignInTab, SignOut } from './AppBarTab';
+import useUser from '../hooks/useUser';
+
 const styles = StyleSheet.create({
 	container: {
 		paddingTop: Constants.statusBarHeight,
@@ -14,11 +16,22 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+	// I'm passing "setUser" to SignOut tab because otherwise 
+	// I need to push tab two time in order to for the state of user to change in "useUser"
+	const [ user, setUser ] = useUser(); 
+
 	return ( 
 		<View style={styles.container}>
 			<ScrollView horizontal={true} >
-				<AppBarTab />
-				<SignInTab />
+				{ 
+					!user ?
+						<SignInTab />
+					:
+					<>	
+						<RepositoriesTab />
+						<SignOut setUser={setUser}/> 
+					</>
+				}
 			</ScrollView>
 		</View>
 	);

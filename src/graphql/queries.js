@@ -13,3 +13,12 @@ export const GET_REPOSITORIES = gql`
 	}
 	${RepositoryList}
 `;
+
+export const SignedInUser = gql`
+	query { 
+		me {
+			id 
+			username
+		}
+	}
+`;

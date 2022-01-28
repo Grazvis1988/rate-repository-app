@@ -20,9 +20,9 @@ const Main = () => {
 		<View style={styles.container}>
 		<AppBar />
 		<Routes>
+			<Route path="/sign-in" element={<SignIn />} exact />
 			<Route path="/" element={<RepositoryList />} exact />
-			<Route path="/sign-in" element={<SignIn />} />
-			<Route path="*" element={<Navigate to="/" replace />} />
+			<Route path="*" element={<Navigate to="/sign-in" replace />} />
 		</Routes>
 		</View>
 	);
