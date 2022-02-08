@@ -47,14 +47,14 @@ const styles = StyleSheet.create({
 });
 
 const Info = ({ label, count }) => {
-	let formatedCount = count;
+    let formatedCount = count
 	if ( count >= 1000 && count < 1000000) {
-		formatedCount = `${formatedCount.toFixed(1)}k`;
+        formatedCount = `${Math.round(count / 100) / 10}k`;
 	} else if ( count > 1000000 ) {
-		formatedCount = `${formatedCount.toFixed(1)}M`;
+        formatedCount = `${Math.round(count / 100000) / 10}M`;
 	}
 	return (
-		<View>
+		<View testID={label}>
 			<Text fontWeight='bold'>{formatedCount}</Text>
 			<Text color='textSecondary'>{label}</Text>
 		</View>
@@ -63,18 +63,18 @@ const Info = ({ label, count }) => {
 
 
 const RepositoryItem = ({ item }) => (
-	<View style={styles.item}>
-		<View style={styles.topSection}> 
+	<View testID="repositoryItem" style={styles.item}>
+		<View testID="InfoSection"style={styles.topSection}> 
 			<Image style={styles.avatar} source={{ uri: item.ownerAvatarUrl}} />
 			<View style={styles.description}>
 				<Text style={styles.bottomMargin} fontWeight='bold'>{item.fullName}</Text>
 				<Text style={styles.bottomMargin} color='textSecondary'>{item.description}</Text>
-				<View style={styles.languageSection}>
+				<View testID="languageInfo" style={styles.languageSection}>
 					<Text backGround='primary' color='whiteText' style={styles.languageItem}>{item.language}</Text>
 				</View>
 			</View>
 		</View>
-		<View style={styles.infoSection}>
+		<View testID="CountsSection" style={styles.infoSection}>
 			<Info label='Stars' count={item.stargazersCount}/>
 			<Info label='Forks' count={item.forksCount}/>
 			<Info label='Reviews' count={item.reviewCount}/>

@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
 	tab: {
 		padding: 2,
 		marginRight: 3,
-		backgroundColor: 'red',
 		flexWrap: 'wrap'
 	}
 });

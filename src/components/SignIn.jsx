@@ -70,14 +70,13 @@ const SignIn = () => {
 
 		const { username, password } = values;
 
-		if (values.username && values.password) {
-			console.log(values);
-		}
-
 		try {
-			const { data } = await signIn({ username, password });
-			console.log(data);
-			navigate("/", { replace: true });
+			if (values.username && values.password) {
+				console.log(values);
+				const { data } = await signIn({ username, password });
+				console.log(data);
+				navigate("/", { replace: true });
+			}
 		} catch (e) {
 			console.log(e);
 		}
