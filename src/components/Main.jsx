@@ -5,6 +5,7 @@ import { View, StyleSheet } from 'react-native';
 import RepositoryList from './RepositoryList';
 import SignIn from './SignIn';
 import AppBar from './AppBar';
+import SingleRepositoryItem from './SingleRepositoryItem';
 
 
 const styles = StyleSheet.create({
@@ -21,6 +22,7 @@ const Main = () => {
 		<AppBar />
 		<Routes>
 			<Route path="/sign-in" element={<SignIn />} exact />
+            <Route path="/repositories/:id" element={<SingleRepositoryItem />} exact />
 			<Route path="/" element={<RepositoryList />} exact />
 			<Route path="*" element={<Navigate to="/sign-in" replace />} />
 		</Routes>

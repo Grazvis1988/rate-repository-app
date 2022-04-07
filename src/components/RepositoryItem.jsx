@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
 	item: {
 		padding: 20,
 		marginVertical: 8,
-		marginHorizontal: 16,
+    width: '100%',
 		fontSize: 20,
 		backgroundColor: '#FFFFFF'
 	},

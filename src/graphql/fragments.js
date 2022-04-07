@@ -2,7 +2,7 @@
 import { gql } from '@apollo/client';
 
 
-export const RepositoryList = gql`
+export const RepositoryItems = gql`
 	fragment CoreNodeFields on Repository {
 		id
 		fullName

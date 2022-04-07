@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { RepositoryList } from './fragments';
+import { RepositoryItems } from './fragments';
 
 export const GET_REPOSITORIES = gql`
 	query {
@@ -11,7 +11,7 @@ export const GET_REPOSITORIES = gql`
 			}
 		}
 	}
-	${RepositoryList}
+	${RepositoryItems}
 `;
 
 export const SignedInUser = gql`
@@ -22,3 +22,13 @@ export const SignedInUser = gql`
 		}
 	}
 `;
+
+export const GET_REPOSITORY = gql`
+    query getRepository($id: ID!) {
+      repository(id: $id) {
+           ...CoreNodeFields
+           url
+      }
+    }
+    ${RepositoryItems}
+`
