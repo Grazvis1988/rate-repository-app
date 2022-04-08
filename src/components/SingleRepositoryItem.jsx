@@ -24,6 +24,42 @@ const styles = StyleSheet.create({
 })
 
 
+const RepositoryInfo = ({ repository }) => {
+  return (
+    <>
+      <View style={styles.info}>
+          <RepositoryItem item={repository} />
+          <Pressable style={styles.button} onPress={() => Linking.openURL(repository.url)}>
+              <Text style={styles.buttonText}>Open in GitHub</Text>
+          </Pressable>
+      </View>
+      <ItemSeparator />
+    </>
+  )
+}
+
+
+const ReviewItem = ({ review }) => {
+  const date = format(new Date(review.createdAt), 'dd.MM.yyyy')
+
+  return (
+    <View style={styles.reviewContainer}>
+      <View style={styles.reviewRatingContainer}>
+        <Text color='primary' 
+        fontWeight='bold'
+        style={styles.reviewRating}
+      >{review.rating}</Text>
+      </View>
+      <View style={styles.reviewInfo}>
+        <Text fontWeight='bold'>{review.user.username}</Text>
+        <Text color='textSecondary'>{date}</Text>
+        <Text>{review.text}</Text>
+      </View>
+    </View>
+  )
+}
+
+
 const SingleRepositoryItem = () => {
   const { id } = useParams();
   const { repository } = useRepository(id)
