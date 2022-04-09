@@ -24,11 +24,25 @@ export const SignedInUser = gql`
 `;
 
 export const GET_REPOSITORY = gql`
-    query getRepository($id: ID!) {
-      repository(id: $id) {
-           ...CoreNodeFields
-           url
+  query getRepository($id: ID!) {
+    repository(id: $id) {
+      ...CoreNodeFields
+      url
+      reviews {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
       }
     }
-    ${RepositoryItems}
+  }
+  }
+  ${RepositoryItems}
 `

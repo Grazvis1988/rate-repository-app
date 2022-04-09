@@ -10,8 +10,8 @@ const theme = {
 		mainBackground: '#e1e4e8'
 	},
 	fontSizes: {
-		body: 14,
-		subheading: 16,
+		body: 15,
+		subheading: 17,
 	},
 	fonts: {
 		main: Platform.select({

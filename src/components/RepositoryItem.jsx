@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
 		backgroundColor: '#FFFFFF'
 	},
 	avatar: {
-		width: 45,
-		height: 45,
+		width: 50,
+		height: 50,
 		marginRight: 10,
 		borderRadius: 4, 
 	},
