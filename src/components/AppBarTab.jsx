@@ -9,10 +9,18 @@ import { useApolloClient } from '@apollo/client';
 const styles = StyleSheet.create({
 	tab: {
 		padding: 2,
-		marginRight: 3,
+		marginRight: 6,
 		flexWrap: 'wrap'
 	}
 });
+
+export const ReviewTab = () => {
+	return (
+		<Pressable onPress={() => console.log("Review tab pressed")} style={styles.tab}>
+			<Link to="/review"><Text color='whiteText' fontSize='subheading' fontWeight ='bold'>Create a review</Text></Link>
+		</Pressable>	
+	);
+};
 
 
 export const RepositoriesTab = () => {
@@ -43,7 +51,7 @@ export const SignOut = ({ setUser }) => {
 	};
 	return (
 		<Pressable onPress={ () => signingOut()} style={styles.tab}>
-			<Text color='whiteText' fontSize='subheading' fontWeight ='bold'>Sign Out</Text>
+			<Text color='whiteText' fontSize='subheading' fontWeight ='bold'>Sign out</Text>
 		</Pressable>	
 	);
 };

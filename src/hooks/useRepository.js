@@ -13,8 +13,8 @@ const useRepository = ( id ) => {
 
 	useEffect(() => {
 		if (data) {
-      setReviews(data.repository.reviews.edges.map(r => r.node))
 			setRepository(data.repository);
+      setReviews(data.repository.reviews.edges.map(r => r.node))
 		}
 	},[data]);
 

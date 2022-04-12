@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.primary,
     textAlign: 'center',
     textAlignVertical: 'center',
-    borderWidth: 3,
+    borderWidth: 2,
   },
   reviewInfo: {
     justifyContent: 'space-around',
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingRight: 10,
     flex: 1,
-
   }
 })
 

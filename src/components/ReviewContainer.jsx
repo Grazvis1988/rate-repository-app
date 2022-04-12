@@ -32,43 +32,42 @@ const styles = StyleSheet.create({
 });
 
 const initialValues = {
-	username: '',
-	password: '',
+  ownerName: '',
+  repositoryName: '',
+  rating: '',
+  text: '',
 };
 
 const validationSchema = yup.object().shape({
-	username: yup
-		.string()
-		.required('Username is required!'),
-	password: yup
-		.string()
-		.required('Password is required!'),
+  repositoryName: yup.string().required("Repository name is required!").lowercase().trim(),
+  ownerName: yup.string().required("Repository owner name is required!").lowercase().trim(),
+  rating: yup.number().integer().min(0).max(100).required("Rating is required!"),
+  text: yup.string().max(2000).trim(),
 });
 
 
-const SignInForm = ({ onSubmit }) => {
+const ReviewForm = ({ onSubmit }) => {
   return (
     <View style={styles.container}>
-      <FormikTextInput name="username" placeholder="Username" />
-      <FormikTextInput name="password" placeholder="Password" secureTextEntry={true}/>
+      <FormikTextInput name="ownerName" placeholder="Repository owner name" />
+      <FormikTextInput name="repositoryName" placeholder="Repository name" />
+      <FormikTextInput name="rating" placeholder="Rating between 0 and 100"/>
+      <FormikTextInput name="text" placeholder="Review" multiline={true}/>
       <Pressable style={styles.submitButton} onPress={onSubmit}>
-		<Text style={styles.signInButtonText}>Sign in</Text>
+		<Text style={styles.signInButtonText}>Create a review</Text>
       </Pressable>
     </View>
   );
 };
 
-
-
-
-const SignInContainer = ({ onSubmit }) => (
+const ReviewContainer = ({ onSubmit }) => (
 		<Formik 
 			initialValues={initialValues} 
 			onSubmit={onSubmit} 
 			validationSchema={validationSchema}
 		>
-			{({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+			{({ handleSubmit }) => <ReviewForm onSubmit={handleSubmit} />}
 		</Formik>
 )
 
-export default SignInContainer;
+export default ReviewContainer;
