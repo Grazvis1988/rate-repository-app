@@ -9,10 +9,19 @@ import { useApolloClient } from '@apollo/client';
 const styles = StyleSheet.create({
 	tab: {
 		padding: 2,
-		marginRight: 6,
+		marginRight: 9,
 		flexWrap: 'wrap'
 	}
 });
+
+export const SignUpTab = () => {
+	return (
+		<Pressable onPress={() => console.log("Sign up tab pressed")} style={styles.tab}>
+			<Link to="/sign-up"><Text color='whiteText' fontSize='subheading' fontWeight ='bold'>Sign up</Text></Link>
+		</Pressable>	
+	);
+};
+
 
 export const ReviewTab = () => {
 	return (

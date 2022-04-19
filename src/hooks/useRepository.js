@@ -4,7 +4,7 @@ import { GET_REPOSITORY } from '../graphql/queries'
 
 const useRepository = ( id ) => {
 	const [ repository, setRepository ] = useState();
-  const [ reviews, setReviews ] = useState();
+  const [ reviews, setReviews ] = useState([]);
 
 	const { data, loading, refetch } = useQuery(GET_REPOSITORY, {
     variables: { id },

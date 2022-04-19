@@ -32,42 +32,39 @@ const styles = StyleSheet.create({
 });
 
 const initialValues = {
-  ownerName: '',
-  repositoryName: '',
-  rating: '',
-  text: '',
+  username: '',
+  password: '',
+  passwordConfiramtion: '',
 };
 
 const validationSchema = yup.object().shape({
-  repositoryName: yup.string().required("Repository name is required!").lowercase().trim(),
-  ownerName: yup.string().required("Repository owner name is required!").lowercase().trim(),
-  rating: yup.number().integer().min(0).max(100).required("Rating is required!"),
-  text: yup.string().max(2000).trim(),
+  username: yup.string().min(1).max(30).required("Username is required!").lowercase().trim(),
+  password: yup.string().min(5).max(50).required("Password is required!"),
+  passwordConfiramtion: yup.string().oneOf([yup.ref('password'), null]).required("Passwords don't match!")
 });
 
 
-const ReviewForm = ({ onSubmit }) => {
+const SignUpForm = ({ onSubmit }) => {
   return (
     <View style={styles.container}>
-      <FormikTextInput name="ownerName" placeholder="Repository owner name" />
-      <FormikTextInput name="repositoryName" placeholder="Repository name" />
-      <FormikTextInput name="rating" placeholder="Rating between 0 and 100"/>
-      <FormikTextInput name="text" placeholder="Review" multiline={true}/>
+      <FormikTextInput name="username" placeholder="Username" />
+      <FormikTextInput name="password" placeholder="Password" secureTextEntry={true}/>
+      <FormikTextInput name="passwordConfiramtion" placeholder="Password confirmation" secureTextEntry={true}/>
       <Pressable style={styles.submitButton} onPress={onSubmit}>
-        <Text style={styles.signInButtonText}>Create a review</Text>
+        <Text style={styles.signInButtonText}>Sign up</Text>
       </Pressable>
     </View>
   );
 };
 
-const ReviewContainer = ({ onSubmit }) => (
+const SignUpContainer = ({ onSubmit }) => (
 		<Formik 
 			initialValues={initialValues} 
 			onSubmit={onSubmit} 
 			validationSchema={validationSchema}
 		>
-			{({ handleSubmit }) => <ReviewForm onSubmit={handleSubmit} />}
+			{({ handleSubmit }) => <SignUpForm onSubmit={handleSubmit} />}
 		</Formik>
 )
 
-export default ReviewContainer;
+export default SignUpContainer;

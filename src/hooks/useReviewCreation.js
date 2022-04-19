@@ -1,11 +1,9 @@
 import { useMutation } from '@apollo/client';
 import { CREATE_REVIEW } from '../graphql/mutations';
 import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-native";
 
 const useReviewCreation = () => {
 	const [result, setResult] = useState(undefined);
-	const navigate = useNavigate();
 
 	const [CreateReview , { data }] = useMutation(CREATE_REVIEW, { 
 		onError: ( networkError, graphQLErrors) => {
@@ -18,7 +16,6 @@ const useReviewCreation = () => {
 	useEffect(() => {
 		if(data) {
 			setResult(data);
-      navigate(`/repositories/${data.repositoryId}`, { replace: true });
 		}
 	}, [data]);
 

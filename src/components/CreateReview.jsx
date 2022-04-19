@@ -3,10 +3,12 @@ import React from 'react'
 import  useReviewCreation from '../hooks/useReviewCreation';
 //import { useNavigate } from "react-router-native";
 import ReviewContainer from './ReviewContainer';
+import { useNavigate } from "react-router-native";
 
 
 const CreateReview = () => {
 	const [ createReview ] = useReviewCreation();
+	const navigate = useNavigate();
 
 	const onSubmit = async (values) => {
 
@@ -15,7 +17,8 @@ const CreateReview = () => {
 		try {
 
 			if (values.repositoryName && values.ownerName && values.rating) {
-				await createReview({ repositoryName, ownerName, rating: Number(rating), text });
+				const { data } = await createReview({ repositoryName, ownerName, rating: Number(rating), text });
+        navigate(`/repositories/${data.createReview.repositoryId}`, { replace: true });
 			}
 		} catch (e) {
 			console.log("Some kind of error is being printed: ", e.message);
