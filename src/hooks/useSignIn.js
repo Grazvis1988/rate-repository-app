@@ -13,7 +13,7 @@ const useSignIn = () => {
 
 	const [result, setResult] = useState(undefined);
 
-	const [Authenticate, results] = useMutation(LOGIN, { 
+	const [Authenticate, { data }] = useMutation(LOGIN, { 
 		onError: ( networkError, graphQLErrors) => {
 			console.log('graphQLErrors', graphQLErrors);
 			console.log('networkError', JSON.stringify(networkError, null, 2));
@@ -21,12 +21,10 @@ const useSignIn = () => {
 	});
 
 	useEffect(() => {
-		if(results.data) {
-			setResult(results.data);
-      console.log('---------------------------------------')
-            console.log("result", result)
+		if(data) {
+			setResult(data);
 		}
-	}, [results]);
+	}, [data]);
 
 	const signIn = async ({ username, password }) => {
 		// call the mutate function here with the right arguments

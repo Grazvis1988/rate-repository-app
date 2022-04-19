@@ -1,8 +1,9 @@
-import React  from 'react';
+import React, { useState, useEffect }  from 'react';
 import { FlatList, View, StyleSheet, Pressable } from 'react-native';
 import { useNavigate } from 'react-router-native';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
+import RepositoriesMeniu from './RepositoriesMeniu'
 
 
 const styles = StyleSheet.create({
@@ -14,20 +15,7 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-/*
-const renderItem = ({ item }) => {
-
-    return (
-        <Pressable onPress={() => {
-            navigate(`/repository/${item.id}`)
-        }}>
-            <RepositoryItem item={item} />
-        </Pressable>
-    )
-};
-*/
-
-export const RepositoryListContainer = ({ repositories }) => {
+export const RepositoryListContainer = ({ repositories, setOrdering, ordering }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -37,6 +25,7 @@ export const RepositoryListContainer = ({ repositories }) => {
     return (
 		<FlatList
 			data={repositoryNodes}
+      ListHeaderComponent={<RepositoriesMeniu setOrdering={setOrdering} ordering={ordering} />}
 			ItemSeparatorComponent={ItemSeparator}
         renderItem={ ({ item }) => (
             <Pressable onPress={() => navigate(`/repositories/${item.id}`)}>
@@ -49,10 +38,40 @@ export const RepositoryListContainer = ({ repositories }) => {
 };
 
 const RepositoryList = () => {
+  const [ ordering, setOrdering ] = useState('latest')
 
-    const { repositories } = useRepositories();
 
-	return <RepositoryListContainer repositories={repositories} />;
+  const orderBy = ordering === "lowest" || ordering === "highest" 
+    ? 'RATING_AVERAGE'
+    : 'CREATED_AT'
+
+  const orderDirection = ordering === 'lowest' ? 'ASC' : 'DESC'
+
+  const variables = {
+    orderBy,
+    orderDirection
+  }
+
+  const { repositories, refetch } = useRepositories(variables);
+
+  useEffect(() => {
+      ( async () => {
+      try {
+        await refetch()
+    } catch (e) {
+      console.log('Failed to refetch: ', e.message)
+    }}
+      )()
+  }, [ordering])
+    
+
+  return (
+    <RepositoryListContainer 
+      repositories={repositories} 
+      setOrdering={setOrdering}
+      ordering={ordering}
+    />
+  )
 };
 
 export default RepositoryList;

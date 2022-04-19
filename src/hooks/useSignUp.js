@@ -16,7 +16,6 @@ const useSignUp = () => {
 	useEffect(() => {
 		if(data) {
 			setResult(data);
-      console.log('333333333333333333333333333333333', data)
 		}
 	}, [data]);
 
