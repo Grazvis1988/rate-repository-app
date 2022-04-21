@@ -97,7 +97,12 @@ const ReviewItem = ({ review }) => {
 
 const SingleRepositoryItem = () => {
   const { id } = useParams();
-  const { repository, reviews } = useRepository(id)
+
+  const variables = {
+    id,
+    first: 8,
+  }
+  const { repository, reviews, fetchMore } = useRepository(variables)
 
 
   if (!repository) {
@@ -106,6 +111,8 @@ const SingleRepositoryItem = () => {
   return (
     <FlatList
       data={reviews}
+      onEndReached={() => fetchMore()}
+      onEndReachedThreshold={0.5}
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={item => item.id}
       ListHeaderComponent={() => <RepositoryInfo repository={repository} />}

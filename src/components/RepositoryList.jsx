@@ -3,7 +3,9 @@ import { FlatList, View, StyleSheet, Pressable } from 'react-native';
 import { useNavigate } from 'react-router-native';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
-import RepositoriesMeniu from './RepositoriesMeniu'
+import RepositoriesMeniu from './RepositoriesMeniu';
+import SearchField from './SearchField';
+import { useDebounce } from 'use-debounce';
 
 
 const styles = StyleSheet.create({
@@ -15,7 +17,14 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const RepositoryListContainer = ({ repositories, setOrdering, ordering }) => {
+export const RepositoryListContainer = ({ 
+  repositories, 
+  onEndReach,
+  setOrdering, 
+  ordering, 
+  searchFieldValue, 
+  setSearchFieldValue 
+}) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -25,13 +34,22 @@ export const RepositoryListContainer = ({ repositories, setOrdering, ordering })
     return (
 		<FlatList
 			data={repositoryNodes}
-      ListHeaderComponent={<RepositoriesMeniu setOrdering={setOrdering} ordering={ordering} />}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
+      ListHeaderComponent={
+      <>
+        <SearchField 
+          searchFieldValue={searchFieldValue} 
+          setSearchFieldValue={setSearchFieldValue} 
+        />
+        <RepositoriesMeniu setOrdering={setOrdering} ordering={ordering} />
+      </>}
 			ItemSeparatorComponent={ItemSeparator}
-        renderItem={ ({ item }) => (
-            <Pressable onPress={() => navigate(`/repositories/${item.id}`)}>
-                <RepositoryItem item={item} />
-            </Pressable>
-        ) }
+      renderItem={ ({ item }) => (
+        <Pressable onPress={() => navigate(`/repositories/${item.id}`)}>
+          <RepositoryItem item={item} />
+        </Pressable>
+      ) }
 			keyExtractor={item => item.id}
 		/>
 	);
@@ -39,6 +57,8 @@ export const RepositoryListContainer = ({ repositories, setOrdering, ordering })
 
 const RepositoryList = () => {
   const [ ordering, setOrdering ] = useState('latest')
+  const [ searchKeyword, setSearchKeyword ] = useState('')
+  const [ value ] = useDebounce(searchKeyword, 500)
 
 
   const orderBy = ordering === "lowest" || ordering === "highest" 
@@ -49,10 +69,16 @@ const RepositoryList = () => {
 
   const variables = {
     orderBy,
-    orderDirection
+    orderDirection,
+    searchKeyword: value,
+    first: 8,
   }
 
-  const { repositories, refetch } = useRepositories(variables);
+  const { repositories, fetchMore, refetch } = useRepositories(variables);
+
+  const onEndReach = () => {
+    fetchMore();
+  }
 
   useEffect(() => {
       ( async () => {
@@ -62,14 +88,17 @@ const RepositoryList = () => {
       console.log('Failed to refetch: ', e.message)
     }}
       )()
-  }, [ordering])
+  }, [ordering, value])
     
 
   return (
     <RepositoryListContainer 
       repositories={repositories} 
+      onEndReach={onEndReach}
       setOrdering={setOrdering}
       ordering={ordering}
+      searchFieldValue={searchKeyword}
+      setSearchFieldValue={setSearchKeyword}
     />
   )
 };
