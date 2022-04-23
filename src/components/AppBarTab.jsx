@@ -14,6 +14,14 @@ const styles = StyleSheet.create({
 	}
 });
 
+export const MyReviewsTab = () => {
+	return (
+		<Pressable onPress={() => console.log("My reviews tab pressed")} style={styles.tab}>
+			<Link to="/my-reviews"><Text color='whiteText' fontSize='subheading' fontWeight ='bold'>My reviews</Text></Link>
+		</Pressable>	
+	);
+}
+
 export const SignUpTab = () => {
 	return (
 		<Pressable onPress={() => console.log("Sign up tab pressed")} style={styles.tab}>
@@ -26,7 +34,7 @@ export const SignUpTab = () => {
 export const ReviewTab = () => {
 	return (
 		<Pressable onPress={() => console.log("Review tab pressed")} style={styles.tab}>
-			<Link to="/review"><Text color='whiteText' fontSize='subheading' fontWeight ='bold'>Create a review</Text></Link>
+			<Link to="/create-review"><Text color='whiteText' fontSize='subheading' fontWeight ='bold'>Create a review</Text></Link>
 		</Pressable>	
 	);
 };
@@ -48,7 +56,7 @@ export const SignInTab = () => {
 	);
 };
 
-export const SignOut = ({ setUser }) => {
+export const SignOutTab = () => {
 	const navigate = useNavigate();
 	const authStorage = useAuthStorage();
 	const apolloClient = useApolloClient();
@@ -56,7 +64,6 @@ export const SignOut = ({ setUser }) => {
 		navigate("sign-in", { replace: true });
 		await authStorage.removeAccessToken();
 		apolloClient.resetStore();
-		setUser(null); 
 	};
 	return (
 		<Pressable onPress={ () => signingOut()} style={styles.tab}>

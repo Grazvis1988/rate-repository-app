@@ -7,6 +7,7 @@ import SignUp from './SignUp';
 import AppBar from './AppBar';
 import SingleRepositoryItem from './SingleRepositoryItem';
 import CreateReview from './CreateReview';
+import Reviews from './Reviews';
 import useUser from '../hooks/useUser';
 
 
@@ -19,16 +20,17 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
-	const [ user, setUser ] = useUser(); 
+	const { user } = useUser(); 
 
 	return (
 		<View style={styles.container}>
-		<AppBar user={user} setUser={setUser}/>
+		<AppBar user={user} />
 		<Routes>
 			<Route path="/sign-in" element={<SignIn />} exact />
 			<Route path="/sign-up" element={<SignUp />} exact />
       <Route path="/repositories/:id" element={<SingleRepositoryItem />} exact />
-      <Route path="/review" element={<CreateReview />} exact/>
+      <Route path="/create-review" element={<CreateReview />} exact/>
+      <Route path="/my-reviews" element={<Reviews />} exact/>
       <Route path="/" element={
         !user ?
           <SignIn />

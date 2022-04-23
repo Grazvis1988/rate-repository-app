@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const ItemSeparator = () => <View style={styles.separator} />;
+export const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryInfo = ({ repository }) => {
   return (
@@ -74,7 +74,7 @@ const RepositoryInfo = ({ repository }) => {
 }
 
 
-const ReviewItem = ({ review }) => {
+export const ReviewItem = ({ review, name }) => {
   const date = format(new Date(review.createdAt), 'dd.MM.yyyy')
 
   return (
@@ -86,7 +86,7 @@ const ReviewItem = ({ review }) => {
       >{review.rating}</Text>
       </View>
       <View style={styles.reviewInfo}>
-        <Text fontWeight='bold'>{review.user.username}</Text>
+        <Text fontWeight='bold'>{name}</Text>
         <Text color='textSecondary'>{date}</Text>
         <Text>{review.text}</Text>
       </View>
@@ -113,7 +113,7 @@ const SingleRepositoryItem = () => {
       data={reviews}
       onEndReached={() => fetchMore()}
       onEndReachedThreshold={0.5}
-      renderItem={({ item }) => <ReviewItem review={item} />}
+      renderItem={({ item }) => <ReviewItem review={item} name={item.user.username} />}
       keyExtractor={item => item.id}
       ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
 			ItemSeparatorComponent={ItemSeparator}

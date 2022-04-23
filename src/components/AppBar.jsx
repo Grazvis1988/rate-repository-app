@@ -2,7 +2,14 @@ import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
-import { RepositoriesTab, SignInTab, SignOut, ReviewTab, SignUpTab } from './AppBarTab';
+import { 
+  RepositoriesTab,
+  SignInTab,
+  SignOutTab,
+  ReviewTab, 
+  SignUpTab,
+  MyReviewsTab,
+} from './AppBarTab';
 
 const styles = StyleSheet.create({
 	container: {
@@ -14,7 +21,7 @@ const styles = StyleSheet.create({
 // ...
 });
 
-const AppBar = ({ user, setUser }) => {
+const AppBar = ({ user }) => {
 
 	return ( 
 		<View style={styles.container}>
@@ -29,7 +36,8 @@ const AppBar = ({ user, setUser }) => {
 					<>	
 						<RepositoriesTab />
             <ReviewTab />
-						<SignOut setUser={setUser}/> 
+            <MyReviewsTab />
+						<SignOutTab /> 
 					</>
 				}
 			</ScrollView>
