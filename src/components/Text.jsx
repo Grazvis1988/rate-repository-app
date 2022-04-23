@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
 	blueBackground: {
 		backgroundColor: theme.colors.primary
 	},
+  redBackground: {
+    backgroundColor: theme.colors.dangerousBackground
+  },
 	colorAppBarText: {
 		color: theme.colors.appBarBackgroundColor,
 	},
@@ -40,6 +43,7 @@ const textStyle = [
 	color === 'primary' && styles.colorPrimary,
 	color === 'whiteText' && styles.whiteText,
 	backGround === 'primary' && styles.blueBackground,
+  backGround === 'danger' && styles.redBackground,
 	fontSize === 'subheading' && styles.fontSizeSubheading,
 	fontWeight === 'bold' && styles.fontWeightBold,
 	style,

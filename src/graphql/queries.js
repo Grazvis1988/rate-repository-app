@@ -44,6 +44,7 @@ export const SignedInUser = gql`
             text
             rating
             createdAt
+            repositoryId
             repository {
               ownerName
               name

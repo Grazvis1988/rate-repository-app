@@ -10,7 +10,6 @@ const useReviewCreation = () => {
 			console.log('graphQLErrors', graphQLErrors);
 			console.log('networkError', JSON.stringify(networkError, null, 2));
         },
-    
 	});
 
 	useEffect(() => {
